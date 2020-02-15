@@ -1,0 +1,108 @@
+﻿<Window x:Class="ClientesKapos.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientesKapos.Commands"
+        xmlns:local1="clr-namespace:ClientesKapos.Converters"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="500">
+    <Window.CommandBindings>
+        <CommandBinding 
+            Command="local:CustomCommands.Añadir"
+            Executed="AñadirCommand_Executed"
+            CanExecute="AñadirCommand_CanExecute"/>
+        <CommandBinding 
+            Command="local:CustomCommands.Cancelar"
+            Executed="CancelarCommand_Executed"
+            CanExecute="CancelarCommand_CanExecute"/>
+        <CommandBinding 
+            Command="local:CustomCommands.Validar"
+            Executed="ValidarCommand_Executed"
+            CanExecute="ValidarCommand_CanExecute"/>
+
+    </Window.CommandBindings>
+
+    <Window.Resources>
+        <local1:ConvertIdToImage x:Key="conversorIdImageUrl"></local1:ConvertIdToImage>
+        <local1:ConvertIdToNombre x:Key="conversorIdNombre"></local1:ConvertIdToNombre>
+
+        <Style x:Name="textBlock_Style" x:Key="textBlock_Style" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style x:Name="Button_Style" x:Key="Button_Style" TargetType="Button">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Height" Value="40"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <DockPanel x:Name="ContenedorPPL_DockPanel">
+
+            <DockPanel x:Name="Header_StackPanel" DockPanel.Dock="Top" >
+                <Button x:Name="HelpButton" DockPanel.Dock="Right" Margin="10" Click="HelpButton_Click">
+                    <Image Source="/Assets/help.ico" Width="20" Height="20">
+
+                    </Image>
+                </Button>
+                <TextBlock x:Name="titulo_TextBox" Text="Seleccionar Elementos" Margin="10" FontSize="15" FontWeight="Bold"/>
+            </DockPanel>
+            <StackPanel x:Name="Footer_StackPanel" DockPanel.Dock="Right" Orientation="Vertical" VerticalAlignment="Top" Margin="5,178,5,0">
+
+                <Label Content="Elementos Seleccionados: " VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding TotalElementosSeleccionados, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="Bold" Foreground="Green" Margin="0,0,0,15" HorizontalAlignment="Center"/>
+                <Button x:Name="confirmar_Button" Content="Añadir Elemento" Style="{StaticResource Button_Style}" Command="local:CustomCommands.Añadir"></Button>
+                <Button x:Name="cancelarSeleccion_Button" Content="Cancelar Selección" Style="{StaticResource Button_Style}" Command="local:CustomCommands.Cancelar"/>
+                <Button x:Name="validarSeleccion_Button" Content="Validar Elección" Style="{StaticResource Button_Style}" Command="local:CustomCommands.Validar"/>
+
+            </StackPanel>
+
+            <ListView x:Name="listaPedidos_ListView" ItemsSource="{Binding ListaElementos.Source}" SelectedItem="{Binding ElementoSeleccionado}" Margin="10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <DockPanel Margin="10">
+                                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding NombreElemento}" Style="{StaticResource textBlock_Style}"/>
+                                    <TextBlock Style="{StaticResource textBlock_Style}" Margin="10,5,5,5">
+                                        <Run Text="{Binding Precio}"/>
+                                        <Run Text="€"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                <Image x:Name="ImagenElemento_Image" Source="{Binding ImagenElementoURL}" Width="100" Height="100"/>
+                            </DockPanel>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="False">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="{Binding Path=Name, Converter={StaticResource conversorIdImageUrl}}" VerticalAlignment="Bottom" Width="100" Height="100"/>
+                                                        <TextBlock Text="{Binding Path=Name,Converter={StaticResource conversorIdNombre}}" FontSize="22" Foreground="Green" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+
+            </ListView>
+        </DockPanel>
+    </Grid>
+</Window>
