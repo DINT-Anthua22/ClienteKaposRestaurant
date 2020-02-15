@@ -1,5 +1,5 @@
 ﻿using ClientesKapos.ViewModel;
-using Kapos_Restaurante_VCliente_Pruebas.View;
+using ClientesKapos.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;

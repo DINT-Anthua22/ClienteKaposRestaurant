@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Kapos_Restaurante_VCliente_Pruebas.View
+namespace ClientesKapos.View
 {
     /// <summary>
     /// Lógica de interacción para ValidarPedido.xaml
