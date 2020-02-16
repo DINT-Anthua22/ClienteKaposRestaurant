@@ -63,6 +63,10 @@ namespace ClientesKapos.Service
             return _contexto.SaveChanges();
         }
 
+        public static void DeleteComanda(COMANDA item)
+        {
+            _contexto.COMANDAS.Remove(item);
+        }
 
 
         //ESTE NO ESTÁ TERMINADO
@@ -76,7 +80,6 @@ namespace ClientesKapos.Service
 
             return factura;
         }
-
 
         public static int ActualizarBbdd()
         {

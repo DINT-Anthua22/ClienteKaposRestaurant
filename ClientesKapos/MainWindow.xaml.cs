@@ -52,7 +52,12 @@ namespace ClientesKapos
         private void CancelarCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
+            MessageBoxResult dialogResult = MessageBox.Show("¿Cancelar Selección?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Asterisk, MessageBoxResult.Cancel);
 
+            if (dialogResult.Equals(MessageBoxResult.Yes))
+            {
+                (this.DataContext as MainViewModel).DeleteComanda();
+            }
 
         }
         private void CancelarCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -63,7 +68,7 @@ namespace ClientesKapos
 
         private void ValidarCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ValidarPedido validarPedidoView = new ValidarPedido((this.DataContext as ViewModel.MainViewModel).ElementosSeleccionados, (this.DataContext as ViewModel.MainViewModel).PrecioTotal) { };
+            ValidarPedido validarPedidoView = new ValidarPedido((this.DataContext as ViewModel.MainViewModel).PrecioTotal, (this.DataContext as ViewModel.MainViewModel).PedidoActual);
             validarPedidoView.Owner = this;
             validarPedidoView.Show();
 

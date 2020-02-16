@@ -60,10 +60,31 @@ namespace ClientesKapos.ViewModel
 
         }
 
+        public void DeleteComanda()
+        {
+            BDService.DeleteComanda(PedidoActual);
 
+            PedidoActual = new COMANDA
+            {
+                FechaComanda = DateTime.Now,
+                Servida = 0
+            };
+
+            BDService.AddComanda(PedidoActual);
+
+            TotalElementosSeleccionados = 0;
+
+            PrecioTotal = 0;
+
+            ElementosSeleccionados = new ObservableCollection<ELEMENTOS>();
+
+            ElementoSeleccionado = null;
+
+        }
 
         public bool Añadir_CanExecute()
         {
+
             return (ElementoSeleccionado != null);
         }
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClientesKapos.Commands"
         xmlns:local1="clr-namespace:ClientesKapos.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="500">
+        Title="MainWindow" Height="650" Width="620">
     <Window.CommandBindings>
         <CommandBinding 
             Command="local:CustomCommands.Añadir"
@@ -31,11 +31,6 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
-        <Style x:Name="Button_Style" x:Key="Button_Style" TargetType="Button">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Height" Value="40"/>
-        </Style>
 
     </Window.Resources>
 
@@ -54,9 +49,9 @@
 
                 <Label Content="Elementos Seleccionados: " VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 <TextBlock Text="{Binding TotalElementosSeleccionados, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="Bold" Foreground="Green" Margin="0,0,0,15" HorizontalAlignment="Center"/>
-                <Button x:Name="confirmar_Button" Content="Añadir Elemento" Style="{StaticResource Button_Style}" Command="local:CustomCommands.Añadir"></Button>
-                <Button x:Name="cancelarSeleccion_Button" Content="Cancelar Selección" Style="{StaticResource Button_Style}" Command="local:CustomCommands.Cancelar"/>
-                <Button x:Name="validarSeleccion_Button" Content="Validar Elección" Style="{StaticResource Button_Style}" Command="local:CustomCommands.Validar"/>
+                <Button x:Name="confirmar_Button" Content="Añadir Elemento" FontSize="12" Margin="10" Height="40" Command="local:CustomCommands.Añadir"></Button>
+                <Button x:Name="cancelarSeleccion_Button" Content="Cancelar Selección" FontSize="12" Margin="10" Height="40" Command="local:CustomCommands.Cancelar"/>
+                <Button x:Name="validarSeleccion_Button" Content="Ver detalles" FontSize="12" Margin="10" Height="40" Command="local:CustomCommands.Validar"/>
 
             </StackPanel>
 
