@@ -16,30 +16,15 @@ namespace ClientesKapos.ViewModel
         public ObservableCollection<ELEMENTOS> ListaElementosPedidos { get; set; }
         public int CantidadElementoPedido { get; set; }
 
-        public double PrecioTotal {
+        public double PrecioTotal { get; set; }
 
-            get { return CalcularPrecio(); }
-            
-        }
-
-        public ValidarPedidoViewModel(Object objeto)
+        public ValidarPedidoViewModel(Object objeto, double precioTotal)
         {
             ListaElementosPedidos = (ObservableCollection<ELEMENTOS>)objeto;
+            PrecioTotal = precioTotal;
         }
 
-        public double CalcularPrecio()
-        {
-            double precio = 0;
-
-            foreach (var elemeto in ListaElementosPedidos)
-            {
-                precio += elemeto.Precio;
-            }
-
-            return precio;
-        }
-
-        public void abrirValidacionManualUsuario()
+        public void AbrirValidacionManualUsuario()
         {
             System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory().ToString() /*+ "\\NombreManual.chm"*/);
         }

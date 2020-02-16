@@ -25,6 +25,7 @@ namespace ClientesKapos.ViewModel
 
         public int TotalElementosSeleccionados { get; set; }
 
+        public double PrecioTotal { get; set; }
 
         //lista para ir añadiendo los elementos seleccionados.
         public ObservableCollection<ELEMENTOS> ElementosSeleccionados { get; set; }
@@ -53,7 +54,10 @@ namespace ClientesKapos.ViewModel
 
             TotalElementosSeleccionados = 0;
 
+            PrecioTotal = 0;
+
             ElementosSeleccionados = new ObservableCollection<ELEMENTOS>();
+
         }
 
 
@@ -94,15 +98,18 @@ namespace ClientesKapos.ViewModel
             if (!repetido)
                 ElementosSeleccionados.Add(ElementoSeleccionado);
 
-            TotalElementosSeleccionados = ElementosSeleccionados.Count;
+            TotalElementosSeleccionados++;
+            PrecioTotal += ElementoSeleccionado.Precio;
         }
 
         void InsertarNuevoElemento()
         {
-            ComandaPedidoActual = new FACTURA();
-            ComandaPedidoActual.IdComanda = PedidoActual.IdComanda;
-            ComandaPedidoActual.IdElemento = ElementoSeleccionado.IdElemento;
-            ComandaPedidoActual.CantidadElementos = 1;
+            ComandaPedidoActual = new FACTURA
+            {
+                IdComanda = PedidoActual.IdComanda,
+                IdElemento = ElementoSeleccionado.IdElemento,
+                CantidadElementos = 1
+            };
             BDService.AddFactura(ComandaPedidoActual);
         }
 
@@ -119,7 +126,7 @@ namespace ClientesKapos.ViewModel
             }
         }
 
-        public void abrirManualUsuario()
+        public void AbrirManualUsuario()
         {
             System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory().ToString() /*+ "\\NombreManual.chm"*/);
         }

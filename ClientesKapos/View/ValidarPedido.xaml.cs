@@ -22,10 +22,10 @@ namespace ClientesKapos.View
     /// </summary>
     public partial class ValidarPedido : Window
     {
-        public ValidarPedido(ObservableCollection<ELEMENTOS> listaElementos)
+        public ValidarPedido(ObservableCollection<ELEMENTOS> listaElementos, double precioTotal)
         {
-            this.DataContext = new ValidarPedidoViewModel(listaElementos);
-            InitializeComponent();
+            this.DataContext = new ValidarPedidoViewModel(listaElementos, precioTotal);
+            InitializeComponent();   
         }
 
         private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -35,7 +35,7 @@ namespace ClientesKapos.View
 
         private void HelpValidacionButton_Click(object sender, RoutedEventArgs e)
         {
-            (this.DataContext as ValidarPedidoViewModel).abrirValidacionManualUsuario();
+            (this.DataContext as ValidarPedidoViewModel).AbrirValidacionManualUsuario();
         }
     }
 }
