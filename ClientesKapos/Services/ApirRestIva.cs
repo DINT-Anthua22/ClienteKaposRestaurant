@@ -16,11 +16,15 @@ namespace ClientesKapos.Service
     {
         public static int RescatarIva()
         {
+            try
+            {
+                string url = "https://apidint1920.azurewebsites.net/api/iva";
+                var json = new WebClient().DownloadString(url);
+                Producto x = JsonConvert.DeserializeObject<Producto>(json);
+                return x.IVA;
+            }
+            catch (Exception) { return 10; }
 
-            string url = "@https://apidint1920.azurewebsites.net/api/iva";
-            var json = new WebClient().DownloadString(url);
-            Producto x = JsonConvert.DeserializeObject<Producto>(json);
-            return x.IVA;
         }
     }
 }

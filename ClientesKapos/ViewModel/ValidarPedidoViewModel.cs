@@ -1,4 +1,5 @@
 ﻿using ClientesKapos.Model;
+using ClientesKapos.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,33 +14,24 @@ namespace ClientesKapos.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<ELEMENTOS> ListaElementosPedidos { get; set; }
-        public int CantidadElementoPedido { get; set; }
+        public ObservableCollection<FACTURA> ListaRegistrosPedido { get; set; }
+        public COMANDA ComandaPedidoActual { get; set; }
 
-        public double PrecioTotal {
+        public double PrecioTotal { get; set; }
+        public double PrecioTotalIVA { get; set; }
+        int porcentajeIVA;
 
-            get { return CalcularPrecio(); }
-            
-        }
-
-        public ValidarPedidoViewModel(Object objeto)
+        public ValidarPedidoViewModel(double precioTotal, COMANDA comanda)
         {
-            ListaElementosPedidos = (ObservableCollection<ELEMENTOS>)objeto;
+            PrecioTotal = precioTotal;
+            ComandaPedidoActual = comanda;
+            ListaRegistrosPedido = new ObservableCollection<FACTURA>(ComandaPedidoActual.FACTURAS);
+            porcentajeIVA = ApirRestIva.RescatarIva();
+
+            PrecioTotalIVA = (PrecioTotal * porcentajeIVA) / 100 + precioTotal;
         }
 
-        public double CalcularPrecio()
-        {
-            double precio = 0;
-
-            foreach (var elemeto in ListaElementosPedidos)
-            {
-                precio += elemeto.Precio;
-            }
-
-            return precio;
-        }
-
-        public void abrirValidacionManualUsuario()
+        public void AbrirValidacionManualUsuario()
         {
             System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory().ToString() /*+ "\\NombreManual.chm"*/);
         }
