@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClientesKapos.Commands"
         xmlns:local1="clr-namespace:ClientesKapos.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="620">
+        Title="Kapo's Restaurant" Height="650" Width="620">
     <Window.CommandBindings>
         <CommandBinding 
             Command="local:CustomCommands.Añadir"
